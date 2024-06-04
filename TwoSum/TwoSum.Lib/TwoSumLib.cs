@@ -46,33 +46,15 @@ public class TwoSumLib
         return [];
     }
 
-    private static bool ArrayValueTooLarge(int[] input, int currentIndex)
-    {
-        return input[currentIndex] > MaxAllowedValue;
-    }
+    private static bool ArrayValueTooLarge(int[] input, int currentIndex) => input[currentIndex] > MaxAllowedValue;
 
-    private static bool ArrayValueTooSmall(int[] input, int currentIndex)
-    {
-        return input[currentIndex] < MinAllowedValue;
-    }
+    private static bool ArrayValueTooSmall(int[] input, int currentIndex) => input[currentIndex] < MinAllowedValue;
 
-    private static bool TargetTooLarge(int target)
-    {
-        return target > MaxAllowedValue;
-    }
+    private static bool TargetTooLarge(int target) => target > MaxAllowedValue;
 
-    private static bool TargetTooSmall(int target)
-    {
-        return (double)target < MinAllowedValue;
-    }
+    private static bool TargetTooSmall(int target) => (double)target < MinAllowedValue;
 
-    private static bool ArrayTooLong(int[] input)
-    {
-        return input.Length > Math.Pow(10, 4);
-    }
+    private static bool ArrayTooLong(int[] input) => input.Length > Math.Pow(10, 4);
 
-    private static bool ArrayTooShort(int[] input)
-    {
-        return input.Length < 2;
-    }
+    private static bool ArrayTooShort(int[] input) => input.Length < 2;
 }

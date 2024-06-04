@@ -21,6 +21,11 @@ public class TwoSumLib
                 "Target must be between 10^-9 and 10^9.");
         }
 
+        return RunTwoSum(input, target);
+    }
+
+    private static int[] RunTwoSum(int[] input, int target)
+    {
         var dictionary = new Dictionary<int, int>();
 
         for (var currentIndex = 0; currentIndex < input.Length; currentIndex++)

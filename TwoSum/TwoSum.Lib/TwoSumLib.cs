@@ -2,8 +2,8 @@
 
 public class TwoSumLib
 {
-    private static readonly int MinAllowedValue = (int)Math.Pow(10, -9);
-    private static readonly int MaxAllowedValue = (int)Math.Pow(10, 9);
+    private static readonly double MinAllowedValue = Math.Pow(10, -9);
+    private static readonly double MaxAllowedValue = Math.Pow(10, 9);
 
     public static int[] Run(int[] input, int target)
     {
@@ -40,21 +40,39 @@ public class TwoSumLib
                 return [currentIndex, index];
             }
 
-            dictionary.Add(currentValue, currentIndex);
+            dictionary.TryAdd(currentValue, currentIndex);
         }
 
         return [];
     }
 
-    private static bool ArrayValueTooLarge(int[] input, int currentIndex) => input[currentIndex] > MaxAllowedValue;
+    private static bool ArrayValueTooLarge(int[] input, int currentIndex)
+    {
+        return input[currentIndex] > MaxAllowedValue;
+    }
 
-    private static bool ArrayValueTooSmall(int[] input, int currentIndex) => input[currentIndex] < MinAllowedValue;
+    private static bool ArrayValueTooSmall(int[] input, int currentIndex)
+    {
+        return input[currentIndex] < MinAllowedValue;
+    }
 
-    private static bool TargetTooLarge(int target) => target > MaxAllowedValue;
+    private static bool TargetTooLarge(int target)
+    {
+        return target > MaxAllowedValue;
+    }
 
-    private static bool TargetTooSmall(int target) => target < MinAllowedValue;
+    private static bool TargetTooSmall(int target)
+    {
+        return (double)target < MinAllowedValue;
+    }
 
-    private static bool ArrayTooLong(int[] input) => input.Length > Math.Pow(10, 4);
+    private static bool ArrayTooLong(int[] input)
+    {
+        return input.Length > Math.Pow(10, 4);
+    }
 
-    private static bool ArrayTooShort(int[] input) => input.Length < 2;
+    private static bool ArrayTooShort(int[] input)
+    {
+        return input.Length < 2;
+    }
 }

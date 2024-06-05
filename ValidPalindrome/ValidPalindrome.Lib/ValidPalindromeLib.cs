@@ -17,19 +17,29 @@ public class ValidPalindromeLib
             return true;
         }
 
+        if (input.Length == 1)
+        {
+            return IsValidCharacter(input, 0);
+        }
+
         var frontIndex = 0;
         var backIndex = input.Length - 1;
 
         while (frontIndex <= backIndex)
         {
-            while (SkipCharacter(input, frontIndex))
+            while (!IsValidCharacter(input, frontIndex) && frontIndex < input.Length - 1)
             {
                 frontIndex++;
             }
 
-            while (SkipCharacter(input, backIndex))
+            while (!IsValidCharacter(input, backIndex) && backIndex > 0)
             {
                 backIndex--;
+            }
+
+            if (frontIndex == input.Length - 1 && backIndex == 0)
+            {
+                return false;
             }
 
             if (!CharactersAreEqual(input, frontIndex, backIndex))
@@ -49,8 +59,8 @@ public class ValidPalindromeLib
         return char.ToLowerInvariant(input[frontIndex]) == char.ToLowerInvariant(input[backIndex]);
     }
 
-    private static bool SkipCharacter(string input, int index)
+    private static bool IsValidCharacter(string input, int index)
     {
-        return !char.IsLetterOrDigit(input[index]);
+        return char.IsLetterOrDigit(input[index]);
     }
 }

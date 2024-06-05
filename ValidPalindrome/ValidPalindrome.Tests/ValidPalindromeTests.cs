@@ -7,6 +7,7 @@ public class ValidPalindromeTests
 {
     [Theory]
     [InlineData("")]
+    [InlineData(" ")]
     [InlineData("    ")]
     public void Empty_String_Is_A_Valid_Palindrome(string input)
     {
@@ -17,6 +18,10 @@ public class ValidPalindromeTests
     [InlineData("A man, a plan, a canal: Panama", true)]
     [InlineData("abbba", true)]
     [InlineData("race a car", false)]
+    [InlineData(".", false)]
+    [InlineData(".,", false)]
+    [InlineData("aa", true)]
+    [InlineData("a", true)]
     public void ValidPalindrome_Returns_Correct_Result(string input, bool expectedResult)
     {
         ValidPalindromeLib.Run(input).Should().Be(expectedResult);

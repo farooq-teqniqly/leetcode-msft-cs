@@ -22,6 +22,7 @@ public class ValidPalindromeTests
     [InlineData(".,", true)]
     [InlineData("aa", true)]
     [InlineData("a", true)]
+    [InlineData("!!!", true)]
     public void ValidPalindrome_Returns_Correct_Result(string input, bool expectedResult)
     {
         ValidPalindromeLib.Run(input).Should().Be(expectedResult);

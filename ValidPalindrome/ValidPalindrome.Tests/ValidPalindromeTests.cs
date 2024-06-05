@@ -18,8 +18,8 @@ public class ValidPalindromeTests
     [InlineData("A man, a plan, a canal: Panama", true)]
     [InlineData("abbba", true)]
     [InlineData("race a car", false)]
-    [InlineData(".", false)]
-    [InlineData(".,", false)]
+    [InlineData(".", true)]
+    [InlineData(".,", true)]
     [InlineData("aa", true)]
     [InlineData("a", true)]
     public void ValidPalindrome_Returns_Correct_Result(string input, bool expectedResult)

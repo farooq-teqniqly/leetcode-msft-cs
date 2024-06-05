@@ -19,7 +19,7 @@ public class ValidPalindromeLib
 
         if (input.Length == 1)
         {
-            return IsValidCharacter(input, 0);
+            return true;
         }
 
         var frontIndex = 0;
@@ -39,7 +39,7 @@ public class ValidPalindromeLib
 
             if (frontIndex == input.Length - 1 && backIndex == 0)
             {
-                return false;
+                return true;
             }
 
             if (!CharactersAreEqual(input, frontIndex, backIndex))

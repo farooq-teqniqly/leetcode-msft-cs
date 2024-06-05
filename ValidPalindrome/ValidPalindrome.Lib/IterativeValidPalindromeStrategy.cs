@@ -36,9 +36,9 @@ public class IterativeValidPalindromeStrategy : IValidPalindromeStrategy
         return true;
     }
 
-    private static bool CharactersAreEqual(string input, int frontIndex, int backIndex)
+    private static bool CharactersAreEqual(string input, int indexOfFirstChar, int indexOfSecondChar)
     {
-        return char.ToLowerInvariant(input[frontIndex]) == char.ToLowerInvariant(input[backIndex]);
+        return char.ToLowerInvariant(input[indexOfFirstChar]) == char.ToLowerInvariant(input[indexOfSecondChar]);
     }
 
     private static bool IsValidCharacter(string input, int index)
@@ -52,20 +52,40 @@ public class LinqBasedValidPalindromeStrategy : IValidPalindromeStrategy
     public bool Run(string input)
     {
         var validIndexes = input.Select((ch, index) =>
-        {
-            if (char.IsLetterOrDigit(ch))
             {
-                return index;
-            }
+                if (char.IsLetterOrDigit(ch))
+                {
+                    return index;
+                }
 
-            return -1;
-        }).ToArray();
+                return -1;
+            }).Where(n => n != -1)
+            .ToArray();
 
-        if (validIndexes.All(n => n == -1))
+        if (validIndexes.Length == 0)
         {
             return true;
         }
 
-        return false;
+        var frontIndex = 0;
+        var backIndex = validIndexes.Length - 1;
+
+        while (frontIndex < backIndex)
+        {
+            if (!CharactersAreEqual(input, validIndexes[frontIndex], validIndexes[backIndex]))
+            {
+                return false;
+            }
+
+            frontIndex++;
+            backIndex--;
+        }
+
+        return true;
+    }
+
+    private static bool CharactersAreEqual(string input, int indexOfFirstChar, int indexOfSecondChar)
+    {
+        return char.ToLowerInvariant(input[indexOfFirstChar]) == char.ToLowerInvariant(input[indexOfSecondChar]);
     }
 }

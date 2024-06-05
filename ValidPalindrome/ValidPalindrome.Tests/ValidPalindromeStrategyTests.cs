@@ -7,7 +7,8 @@ public class ValidPalindromeStrategyTests
 {
     private readonly IValidPalindromeStrategy[] strategies =
     [
-        new IterativeValidPalindromeStrategy()
+        new IterativeValidPalindromeStrategy(),
+        new LinqBasedValidPalindromeStrategy()
     ];
 
     [Theory]

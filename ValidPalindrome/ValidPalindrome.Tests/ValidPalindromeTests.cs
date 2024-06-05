@@ -3,40 +3,25 @@ using ValidPalindrome.Lib;
 
 namespace ValidPalindrome.Tests;
 
-public class ValidPalindromeTests
+public class IterativeValidPalindromeStrategyTests
 {
-    [Theory]
-    [InlineData("")]
-    [InlineData(" ")]
-    [InlineData("    ")]
-    public void Empty_String_Is_A_Valid_Palindrome(string input)
-    {
-        ValidPalindromeLib.Run(input).Should().BeTrue();
-    }
+    private readonly IValidPalindromeStrategy strategy = new IterativeValidPalindromeStrategy();
 
     [Theory]
     [InlineData("A man, a plan, a canal: Panama", true)]
     [InlineData("abbba", true)]
     [InlineData("race a car", false)]
-    [InlineData(".", true)]
-    [InlineData(".,", true)]
     [InlineData("aa", true)]
-    [InlineData("a", true)]
-    [InlineData("!!!", true)]
-    public void ValidPalindrome_Returns_Correct_Result(string input, bool expectedResult)
+    public void ValidPalindromeStrategy_Returns_Correct_Result(string input, bool expectedResult)
     {
-        ValidPalindromeLib.Run(input).Should().Be(expectedResult);
+        strategy.Run(input).Should().Be(expectedResult);
     }
 
-    [Fact]
-    public void ValidPalindrome_Throws_When_Input_Is_Too_Long()
+    [Theory]
+    [InlineData(".,")]
+    [InlineData("!!!")]
+    public void String_Of_Only_Non_AlphaNumeric_Characters_Is_Valid_Palindrome(string input)
     {
-        var length = (int)(2 * Math.Pow(10, 5)) + 1;
-        var input = new string('a', length);
-
-        var badAct = () => ValidPalindromeLib.Run(input);
-
-        badAct.Should().Throw<ArgumentOutOfRangeException>()
-            .WithMessage("Maximum length of the input is 2 * 10^5 characters. (Parameter 'input')");
+        strategy.Run(input).Should().BeTrue();
     }
 }

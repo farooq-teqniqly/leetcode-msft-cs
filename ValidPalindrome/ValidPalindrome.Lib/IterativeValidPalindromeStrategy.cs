@@ -46,3 +46,26 @@ public class IterativeValidPalindromeStrategy : IValidPalindromeStrategy
         return char.IsLetterOrDigit(input[index]);
     }
 }
+
+public class LinqBasedValidPalindromeStrategy : IValidPalindromeStrategy
+{
+    public bool Run(string input)
+    {
+        var validIndexes = input.Select((ch, index) =>
+        {
+            if (char.IsLetterOrDigit(ch))
+            {
+                return index;
+            }
+
+            return -1;
+        }).ToArray();
+
+        if (validIndexes.All(n => n == -1))
+        {
+            return true;
+        }
+
+        return false;
+    }
+}

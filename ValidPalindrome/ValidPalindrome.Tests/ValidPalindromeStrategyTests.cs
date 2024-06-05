@@ -3,9 +3,12 @@ using ValidPalindrome.Lib;
 
 namespace ValidPalindrome.Tests;
 
-public class IterativeValidPalindromeStrategyTests
+public class ValidPalindromeStrategyTests
 {
-    private readonly IValidPalindromeStrategy strategy = new IterativeValidPalindromeStrategy();
+    private readonly IValidPalindromeStrategy[] strategies =
+    [
+        new IterativeValidPalindromeStrategy()
+    ];
 
     [Theory]
     [InlineData("A man, a plan, a canal: Panama", true)]
@@ -14,7 +17,11 @@ public class IterativeValidPalindromeStrategyTests
     [InlineData("aa", true)]
     public void ValidPalindromeStrategy_Returns_Correct_Result(string input, bool expectedResult)
     {
-        strategy.Run(input).Should().Be(expectedResult);
+        foreach (var strategy in strategies)
+        {
+            strategy.Run(input).Should().Be(expectedResult);
+        }
+
     }
 
     [Theory]
@@ -22,6 +29,9 @@ public class IterativeValidPalindromeStrategyTests
     [InlineData("!!!")]
     public void String_Of_Only_Non_AlphaNumeric_Characters_Is_Valid_Palindrome(string input)
     {
-        strategy.Run(input).Should().BeTrue();
+        foreach (var strategy in strategies)
+        {
+            strategy.Run(input).Should().BeTrue();
+        }
     }
 }

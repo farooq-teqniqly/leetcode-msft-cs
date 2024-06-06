@@ -21,8 +21,10 @@ public class ValidParenthesesTests
     [InlineData("()", true)]
     [InlineData("()[]{}", true)]
     [InlineData("(]", false)]
+    [InlineData("){", false)]
+    [InlineData("(()", false)]
     public void ValidParentheses_Returns_Correct_Result(string input, bool expectedResult)
     {
-        ValidParenthesesLib.Run(input).Should().BeFalse();
+        ValidParenthesesLib.Run(input).Should().Be(expectedResult);
     }
 }

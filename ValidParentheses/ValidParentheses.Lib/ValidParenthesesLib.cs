@@ -2,16 +2,16 @@
 
 public class ValidParenthesesLib
 {
-    public static bool Run(string input)
+    public static bool Run(string s)
     {
-        if (input.Length == 1)
+        if (s.Length == 1)
         {
             return false;
         }
 
         var stack = new Stack<char>();
 
-        foreach (var ch in input)
+        foreach (var ch in s)
         {
             if (IsOpenParenthesisCharacter(ch))
             {
@@ -19,9 +19,14 @@ public class ValidParenthesesLib
             }
             else if (IsClosedParenthesisCharacter(ch))
             {
-                var poppedCh = stack.Pop();
+                var popped = stack.TryPop(out var poppedCh);
 
-                if (!IsMatchingParenthesis(ch, poppedCh))
+                if (!popped)
+                {
+                    return false;
+                }
+
+                if (!IsMatchingParenthesis(poppedCh, ch))
                 {
                     return false;
                 }

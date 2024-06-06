@@ -5,7 +5,10 @@ namespace ReverseString.Tests;
 
 public class ReverseStringTests
 {
-    private IReverseStringStrategy[] strategies = [new TwoPointerReverseStringStrategy()];
+    private IReverseStringStrategy[] strategies = [
+        new TwoPointerReverseStringStrategy(),
+        new DotNetBuiltInReverseStringStrategy()
+    ];
 
     [Theory]
     [InlineData("hello", "olleh")]
@@ -14,11 +17,11 @@ public class ReverseStringTests
     [InlineData("   a b a b  ", "  b a b a   ")]
     public void ReverseString_Returns_Expected_Result(string input, string reversed)
     {
-        var inputArray = input.ToCharArray();
-        var reversedArray = reversed.ToCharArray();
-
         foreach (var strategy in strategies)
         {
+            var inputArray = input.ToCharArray();
+            var reversedArray = reversed.ToCharArray();
+
             var lib = new ReverseStringLib(strategy);
             lib.Run(inputArray).Should().Equal(reversedArray);
         }

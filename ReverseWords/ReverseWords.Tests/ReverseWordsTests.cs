@@ -55,4 +55,32 @@ public class ReverseWordsTests
                 .WithMessage("Maximum length of input string is 10^4 characters. (Parameter 'input')");
         }
     }
+
+    [Fact]
+    public void ReverseWords_When_String_Length_Equals_Lower_Bound_Returns_Expected_Result()
+    {
+        var lowerBound = 1;
+        var input = new string('a', lowerBound);
+
+        foreach (var strategy in strategies)
+        {
+            var lib = new ReverseWordsLib(strategy);
+
+            lib.Run(input).Should().Be("a");
+        }
+    }
+
+    [Fact]
+    public void ReverseWords_When_String_Length_Equals_Upper_Bound_Returns_Expected_Result()
+    {
+        var upperBound = 10000;
+        var input = new string('a', upperBound);
+
+        foreach (var strategy in strategies)
+        {
+            var lib = new ReverseWordsLib(strategy);
+
+            lib.Run(input).Should().Be(input);
+        }
+    }
 }

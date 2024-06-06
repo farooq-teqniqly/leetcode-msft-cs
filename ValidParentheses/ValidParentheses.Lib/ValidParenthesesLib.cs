@@ -50,11 +50,11 @@ public class ValidParenthesesLib
 
     private static bool IsClosedParenthesisCharacter(char ch)
     {
-        return ch == ')' || ch == ']' || ch == '}';
+        return ch is ')' or ']' or '}';
     }
 
     private static bool IsOpenParenthesisCharacter(char ch)
     {
-        return ch == '(' || ch == '[' || ch == '{';
+        return ch is '(' or '[' or '{';
     }
 }

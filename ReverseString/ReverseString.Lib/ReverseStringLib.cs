@@ -1,10 +1,10 @@
 ﻿namespace ReverseString.Lib;
 
-public class ReverseStringLib
+public class ReverseStringLib(IReverseStringStrategy strategy)
 {
     private const int MaxInputLength = 100_000;
 
-    public static char[] Run(char[] input)
+    public char[] Run(char[] input)
     {
         if (input.Length == 0)
         {
@@ -20,6 +20,21 @@ public class ReverseStringLib
                 nameof(input));
         }
 
+        return strategy.Run(input);
+    }
+
+
+}
+
+public interface IReverseStringStrategy
+{
+    char[] Run(char[] input);
+}
+
+public class TwoPointerReverseStringStrategy : IReverseStringStrategy
+{
+    public char[] Run(char[] input)
+    {
         var frontIndex = 0;
         var backIndex = input.Length - 1;
 
@@ -32,7 +47,6 @@ public class ReverseStringLib
 
         return input;
     }
-
     private static void Swap(char[] input, int frontIndex, int backIndex)
     {
         (input[frontIndex], input[backIndex]) = (input[backIndex], input[frontIndex]);

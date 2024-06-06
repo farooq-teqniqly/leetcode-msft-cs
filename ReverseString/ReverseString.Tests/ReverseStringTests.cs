@@ -5,6 +5,8 @@ namespace ReverseString.Tests;
 
 public class ReverseStringTests
 {
+    private IReverseStringStrategy[] strategies = [new TwoPointerReverseStringStrategy()];
+
     [Theory]
     [InlineData("hello", "olleh")]
     [InlineData("Hannah", "hannaH")]
@@ -15,29 +17,42 @@ public class ReverseStringTests
         var inputArray = input.ToCharArray();
         var reversedArray = reversed.ToCharArray();
 
-        ReverseStringLib.Run(inputArray).Should().Equal(reversedArray);
+        foreach (var strategy in strategies)
+        {
+            var lib = new ReverseStringLib(strategy);
+            lib.Run(inputArray).Should().Equal(reversedArray);
+        }
     }
 
     [Fact]
     public void ReverseString_When_Input_Is_Zero_Length_Throws_Exception()
     {
-        var badAct = () => ReverseStringLib.Run(Array.Empty<char>());
+        foreach (var strategy in strategies)
+        {
+            var lib = new ReverseStringLib(strategy);
+            var badAct = () => lib.Run(Array.Empty<char>());
 
-        badAct.Should()
-            .Throw<ArgumentException>()
-            .WithMessage("Input array cannot have a zero length. (Parameter 'input')");
+            badAct.Should()
+                .Throw<ArgumentException>()
+                .WithMessage("Input array cannot have a zero length. (Parameter 'input')");
+        }
     }
 
     [Fact]
     public void ReverseString_When_Input_Is_Too_Long_Throws_Exception()
     {
-        var badInput = Enumerable.Repeat('a', (int)Math.Pow(10, 5) + 1)
-            .ToArray();
+        foreach (var strategy in strategies)
+        {
+            var lib = new ReverseStringLib(strategy);
 
-        var badAct = () => ReverseStringLib.Run(badInput);
+            var badInput = Enumerable.Repeat('a', (int)Math.Pow(10, 5) + 1)
+                .ToArray();
 
-        badAct.Should()
-            .Throw<ArgumentException>()
-            .WithMessage("The maximum length of the input array is 10^5 characters. (Parameter 'input')");
+            var badAct = () => lib.Run(badInput);
+
+            badAct.Should()
+                .Throw<ArgumentException>()
+                .WithMessage("The maximum length of the input array is 10^5 characters. (Parameter 'input')");
+        }
     }
 }

@@ -34,6 +34,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReverseString.Lib", "Revers
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReverseString.Tests", "ReverseString\ReverseString.Tests\ReverseString.Tests.csproj", "{3BF50EC2-613F-4BDB-A424-47849C2E9A1A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReverseWords", "ReverseWords", "{EC075DA3-3B61-45D3-B913-D67F9E26590D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReverseWords.Lib", "ReverseWords\ReverseWords.Lib\ReverseWords.Lib.csproj", "{563650CE-3526-463B-A3E3-1E79E6A24FB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReverseWords.Tests", "ReverseWords\ReverseWords.Tests\ReverseWords.Tests.csproj", "{6F2B2393-876D-4CDE-A8AC-A05B6235157F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,6 +78,14 @@ Global
 		{3BF50EC2-613F-4BDB-A424-47849C2E9A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BF50EC2-613F-4BDB-A424-47849C2E9A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BF50EC2-613F-4BDB-A424-47849C2E9A1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{563650CE-3526-463B-A3E3-1E79E6A24FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{563650CE-3526-463B-A3E3-1E79E6A24FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{563650CE-3526-463B-A3E3-1E79E6A24FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{563650CE-3526-463B-A3E3-1E79E6A24FB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F2B2393-876D-4CDE-A8AC-A05B6235157F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F2B2393-876D-4CDE-A8AC-A05B6235157F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F2B2393-876D-4CDE-A8AC-A05B6235157F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F2B2393-876D-4CDE-A8AC-A05B6235157F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +99,7 @@ Global
 		{5828FF6A-61FF-4D91-A674-688077C32CB6} = {C6F338A4-F36A-410F-A942-8210DD263544}
 		{135EE96C-4D04-43EE-9BCB-CE7E9564C92A} = {994340D4-DBB2-47D5-B49F-33879AF53806}
 		{3BF50EC2-613F-4BDB-A424-47849C2E9A1A} = {994340D4-DBB2-47D5-B49F-33879AF53806}
+		{563650CE-3526-463B-A3E3-1E79E6A24FB8} = {EC075DA3-3B61-45D3-B913-D67F9E26590D}
+		{6F2B2393-876D-4CDE-A8AC-A05B6235157F} = {EC075DA3-3B61-45D3-B913-D67F9E26590D}
 	EndGlobalSection
 EndGlobal

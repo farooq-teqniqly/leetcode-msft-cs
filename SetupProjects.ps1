@@ -4,9 +4,9 @@ param (
     [string] $ProjectName
 )
 
-$slnFileName = "LeetcodeMsft.sln";
+$slnFileName = "LeetcodeMsft"
 
-if (-not (Test-Path -Path .\$slnFileName)) {
+if (-not (Test-Path -Path $slnFileName)) {
    dotnet new sln --name $slnFileName 
 }
 

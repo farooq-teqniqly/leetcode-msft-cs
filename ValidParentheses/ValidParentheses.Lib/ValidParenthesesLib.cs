@@ -33,12 +33,7 @@ public class ValidParenthesesLib
             }
         }
 
-        if (stack.Count == 0)
-        {
-            return true;
-        }
-
-        return false;
+        return stack.Count == 0;
     }
 
     private static bool IsMatchingParenthesis(char first, char second)

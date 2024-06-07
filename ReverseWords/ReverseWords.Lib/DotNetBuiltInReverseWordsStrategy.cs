@@ -4,9 +4,9 @@ namespace ReverseWords.Lib;
 
 public class DotNetBuiltInReverseWordsStrategy : IReverseWordsStrategy
 {
-    public string Run(string input)
+    public string Run(string s)
     {
-        var reversedArray = input.Split(
+        var reversedArray = s.Split(
                 " ",
                 StringSplitOptions.RemoveEmptyEntries)
             .Reverse()
@@ -18,24 +18,23 @@ public class DotNetBuiltInReverseWordsStrategy : IReverseWordsStrategy
 
 public class ManualReverseWordsStrategy : IReverseWordsStrategy
 {
-    public string Run(string input)
+    public string Run(string s)
     {
         var wordStack = new Stack<string>();
 
-        for (var currentIndex = 0; currentIndex < input.Length; currentIndex++)
+        for (var currentIndex = 0; currentIndex < s.Length; currentIndex++)
         {
             // Ignore leading and trailing whitespace
-            if (input[currentIndex] == ' ')
+            if (s[currentIndex] == ' ')
             {
-                currentIndex++;
                 continue;
             }
 
             var wordBuilder = new StringBuilder();
 
-            while (currentIndex < input.Length && input[currentIndex] != ' ')
+            while (currentIndex < s.Length && s[currentIndex] != ' ')
             {
-                wordBuilder.Append(input[currentIndex]);
+                wordBuilder.Append(s[currentIndex]);
                 currentIndex++;
             }
 

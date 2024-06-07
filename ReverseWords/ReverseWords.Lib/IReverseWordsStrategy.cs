@@ -2,5 +2,5 @@
 
 public interface IReverseWordsStrategy
 {
-    string Run(string input);
+    string Run(string s);
 }

@@ -14,6 +14,7 @@ public class ReverseWordsTests
     [InlineData("the sky is blue", "blue is sky the")]
     [InlineData("  hello world  ", "world hello")]
     [InlineData("a good   example", "example good a")]
+    [InlineData("  Bob    Loves  Alice   ", "Alice Loves Bob")]
     public void ReverseWords_Returns_Expected_Result(string input, string reversed)
     {
         foreach (var strategy in strategies)

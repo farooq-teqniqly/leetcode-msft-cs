@@ -5,7 +5,10 @@ namespace ReverseWords.Tests;
 
 public class ReverseWordsTests
 {
-    private readonly IReverseWordsStrategy[] strategies = [new DotNetBuiltInReverseWordsStrategy()];
+    private readonly IReverseWordsStrategy[] strategies = [
+        new DotNetBuiltInReverseWordsStrategy(),
+        new ManualReverseWordsStrategy()
+    ];
 
     [Theory]
     [InlineData("the sky is blue", "blue is sky the")]

@@ -4,12 +4,12 @@ public class InPlaceReverseWordsStrategy : IReverseWordsStrategy
 {
     public string Run(string input)
     {
-        var inputArray = input.ToCharArray();
+        var s = input.ToCharArray();
 
-        ReverseString(inputArray, 0, inputArray.Length - 1);
-        ReverseWords(inputArray);
+        ReverseString(s, 0, s.Length - 1);
+        ReverseWords(s);
 
-        return new string(inputArray);
+        return new string(s);
     }
 
     private void ReverseWords(char[] inputArray)
@@ -31,14 +31,14 @@ public class InPlaceReverseWordsStrategy : IReverseWordsStrategy
         }
     }
 
-    private void ReverseString(char[] inputArray, int startIndex, int endIndex)
+    private void ReverseString(
+        char[] inputArray,
+        int startIndex,
+        int endIndex)
     {
         while (startIndex < endIndex)
         {
-            char tmp = inputArray[endIndex];
-
-            inputArray[endIndex] = inputArray[startIndex];
-            inputArray[startIndex] = tmp;
+            (inputArray[endIndex], inputArray[startIndex]) = (inputArray[startIndex], inputArray[endIndex]);
 
             startIndex++;
             endIndex--;

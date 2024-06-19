@@ -7,7 +7,8 @@ public class LongestPalindromicSubstringTests
 {
     private ILongestPalindromicSubstringStrategy[] strategies =
     [
-        new LongestPalindromicSubstringNSquaredStrategy()
+        new LongestPalindromicSubstringNSquaredStrategy(),
+        new LongestPLongestPalindromicSubstringBruteForceStrategy()
     ];
 
     [Theory]

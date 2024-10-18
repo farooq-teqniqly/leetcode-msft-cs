@@ -15,6 +15,13 @@ namespace LeetcodeMsft.Lib.Tests
         }
 
         [Fact]
+        public void TwoSum_When_Input_Null_Throws()
+        {
+            var badAct = () => Problems.TwoSum(null, 0);
+            badAct.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
         public void TwoSumMultipleAnswersPossible_Returns_Expected_Result()
         {
             var input = new[] { 3, 1, 4, 0, 1 };
@@ -27,6 +34,13 @@ namespace LeetcodeMsft.Lib.Tests
             {
                 actualResult[i].SequenceEqual(expectedResult[i]).Should().BeTrue();
             }
+        }
+
+        [Fact]
+        public void TwoSumMultipleAnswersPossible_When_Input_Null_Throws()
+        {
+            var badAct = () => Problems.TwoSumMultipleAnswersPossible(null, 0);
+            badAct.Should().Throw<ArgumentNullException>();
         }
     }
 }

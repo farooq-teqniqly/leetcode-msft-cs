@@ -4,6 +4,11 @@
     {
         public static int[] TwoSum(int[] input, int target)
         {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
             var map = new Dictionary<int, int>();
 
             for (var i = 0; i < input.Length; i++)
@@ -25,6 +30,11 @@
 
         public static List<int[]> TwoSumMultipleAnswersPossible(int[] input, int target)
         {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
             var map = new Dictionary<int, List<int>>();
             var results = new List<int[]>();
 

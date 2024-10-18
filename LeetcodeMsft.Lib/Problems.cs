@@ -57,7 +57,7 @@
 
                     if (sum == target)
                     {
-                        output.Add(new[] { currentNumber, leftNumber, rightNumber });
+                        output.Add([currentNumber, leftNumber, rightNumber]);
                         break;
 
                     }
@@ -91,17 +91,17 @@
             {
                 var complement = target - input[i];
 
-                if (!map.ContainsKey(complement))
+                if (!map.TryGetValue(complement, out var value))
                 {
                     map.Add(input[i], i);
                 }
                 else
                 {
-                    return [map[complement], i];
+                    return [value, i];
                 }
             }
 
-            return Array.Empty<int>();
+            return [];
         }
 
         /// <summary>
@@ -129,7 +129,7 @@
                     }
                 }
 
-                if (map.ContainsKey(input[i]))
+                if (map.TryGetValue(input[i], out _))
                 {
                     map[input[i]].Add(i);
                 }
@@ -160,11 +160,11 @@
 
             foreach (var ch in input)
             {
-                if (map.Values.Contains(ch))
+                if (map.ContainsValue(ch))
                 {
                     stack.Push(ch);
                 }
-                else if (map.Keys.Contains(ch))
+                else if (map.TryGetValue(ch, out _))
                 {
                     if (stack.Count == 0)
                     {

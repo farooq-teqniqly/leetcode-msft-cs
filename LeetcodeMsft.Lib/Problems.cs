@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LeetcodeMsft.Lib
+﻿namespace LeetcodeMsft.Lib
 {
     public class Problems
     {

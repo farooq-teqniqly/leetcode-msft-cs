@@ -150,6 +150,47 @@
 
             return results;
         }
+
+        public static bool ValidParentheses(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return false;
+            }
+
+            var map = new Dictionary<char, char>
+            {
+                { ')', '(' },
+                { ']', '[' },
+                { '}', '{' },
+            };
+
+            var stack = new Stack<char>();
+
+            foreach (var ch in input)
+            {
+                if (map.Values.Contains(ch))
+                {
+                    stack.Push(ch);
+                }
+                else if (map.Keys.Contains(ch))
+                {
+                    if (stack.Count == 0)
+                    {
+                        return false;
+                    }
+
+                    var popped = stack.Pop();
+
+                    if (map[ch] != popped)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return stack.Count == 0;
+        }
     }
 
     internal class IntArrayComparer : IEqualityComparer<int[]>

@@ -115,5 +115,20 @@ namespace LeetcodeMsft.Lib.Tests
             var badAct = () => Problems.ThreeSum(null!, 0);
             badAct.Should().Throw<ArgumentNullException>();
         }
+
+        [Theory]
+        [InlineData("[]", true)]
+        [InlineData("()", true)]
+        [InlineData("{}", true)]
+        [InlineData("[[[{{{()}}}]]]", true)]
+        [InlineData("[[[{{{()}}]]]", false)]
+        [InlineData("[", false)]
+        [InlineData("]", false)]
+        [InlineData("", false)]
+        [InlineData("{a} + b(c + [a/b])", true)]
+        public void ValidParentheses_Returns_Expected_Result(string input, bool expectedResult)
+        {
+            Problems.ValidParentheses(input).Should().Be(expectedResult);
+        }
     }
 }

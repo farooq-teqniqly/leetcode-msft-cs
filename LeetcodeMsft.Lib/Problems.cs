@@ -11,10 +11,7 @@
         /// <returns>An array containing the nearest smaller number for each element in the input array.</returns>
         public static int[] NearestSmallerNumber(int[] input)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
+            ArgumentNullException.ThrowIfNull(input);
 
             var output = new int[input.Length];
             var stack = new Stack<int>();
@@ -86,10 +83,7 @@
         /// <returns>An array containing the indexes of the two numbers that add up to the target value.</returns>
         public static int[] TwoSum(int[] input, int target)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
+            ArgumentNullException.ThrowIfNull(input);
 
             var map = new Dictionary<int, int>();
 
@@ -118,10 +112,7 @@
         /// <returns>An array containing the indexes of the two numbers that add up to the target value.</returns>
         public static List<int[]> TwoSumMultipleAnswersPossible(int[] input, int target)
         {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
+            ArgumentNullException.ThrowIfNull(input);
 
             var map = new Dictionary<int, List<int>>();
             var results = new List<int[]>();

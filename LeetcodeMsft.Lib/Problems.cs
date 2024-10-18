@@ -142,6 +142,11 @@
             return results;
         }
 
+        /// <summary>
+        /// Determines whether the parentheses in the input string are valid.
+        /// </summary>
+        /// <param name="input">The input string.</param>l
+        /// <returns>True if the parentheses are valid; otherwise, false.</returns>
         public static bool ValidParentheses(string input)
         {
             if (string.IsNullOrWhiteSpace(input))

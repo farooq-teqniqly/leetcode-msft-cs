@@ -57,5 +57,21 @@ namespace LeetcodeMsft.Lib.Tests
             var badAct = () => Problems.NearestSmallerNumber(null!);
             badAct.Should().Throw<ArgumentNullException>();
         }
+
+        [Theory]
+        [InlineData(new[] { 4, 1, 0, 3, 6 }, 13, new[] { 2, 3, 4 })]
+        [InlineData(new[] { -1, 0, 1 }, 0, new[] { 0, 1, 2 })]
+        [InlineData(new[] { 1, 1, 1 }, 5, new int[] { })]
+        public void ThreeSum_Returns_Expected_Result(int[] input, int target, int[] expectedResult)
+        {
+            Problems.ThreeSum(input, target).SequenceEqual(expectedResult).Should().BeTrue();
+        }
+
+        [Fact]
+        public void ThreeSum_When_Input_Null_Throws()
+        {
+            var badAct = () => Problems.ThreeSum(null!, 0);
+            badAct.Should().Throw<ArgumentNullException>();
+        }
     }
 }

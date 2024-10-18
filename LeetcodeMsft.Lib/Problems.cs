@@ -32,6 +32,38 @@
             return output;
         }
 
+        public static int[] ThreeSum(int[] input, int target)
+        {
+            Array.Sort(input);
+
+            for (var i = 0; i < input.Length; i++)
+            {
+                var left = i + 1;
+                var right = input.Length - 1;
+
+                while (left < right)
+                {
+                    var sum = input[i] + input[left] + input[right];
+
+                    if (sum == target)
+                    {
+                        return new[] { i, left, right };
+                    }
+
+                    if (sum < target)
+                    {
+                        left++;
+                    }
+                    else
+                    {
+                        right--;
+                    }
+                }
+            }
+
+            return Array.Empty<int>();
+        }
+
         /// <summary>
         /// Finds two numbers in the input array that add up to the target value.
         /// </summary>

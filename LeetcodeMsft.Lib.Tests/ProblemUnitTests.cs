@@ -125,7 +125,10 @@ namespace LeetcodeMsft.Lib.Tests
         [InlineData("[", false)]
         [InlineData("]", false)]
         [InlineData("", false)]
+        [InlineData("   ", false)]
+        [InlineData(null, false)]
         [InlineData("{a} + b(c + [a/b])", true)]
+        [InlineData("abc", true)]
         public void ValidParentheses_Returns_Expected_Result(string input, bool expectedResult)
         {
             Problems.ValidParentheses(input).Should().Be(expectedResult);

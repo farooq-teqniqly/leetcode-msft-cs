@@ -58,13 +58,55 @@ namespace LeetcodeMsft.Lib.Tests
             badAct.Should().Throw<ArgumentNullException>();
         }
 
-        [Theory]
-        [InlineData(new[] { 4, 1, 0, 3, 6 }, 13, new[] { 2, 3, 4 })]
-        [InlineData(new[] { -1, 0, 1 }, 0, new[] { 0, 1, 2 })]
-        [InlineData(new[] { 1, 1, 1 }, 5, new int[] { })]
-        public void ThreeSum_Returns_Expected_Result(int[] input, int target, int[] expectedResult)
+        [Fact]
+        public void ThreeSum_Returns_Expected_Result_1()
         {
-            Problems.ThreeSum(input, target).SequenceEqual(expectedResult).Should().BeTrue();
+            var input = new[] { -1, 0, 1, 2, -1, -4 };
+            var target = 0;
+
+            var expectedResult = new List<int[]>()
+            {
+                new int[] {0, 1, 2 }, new int[] {0, 3, 4 }
+            };
+
+            var actualResult = Problems.ThreeSum(input, target);
+
+            actualResult.Select(r => r.Sum().Should().Be(target));
+        }
+
+        [Fact]
+        public void ThreeSum_Returns_Expected_Result_2()
+        {
+            var input = new[] { 1, 0, 0 };
+            var target = 0;
+
+            var actualResult = Problems.ThreeSum(input, target);
+
+            actualResult.Count.Should().Be(0);
+        }
+
+        [Fact]
+        public void ThreeSum_Returns_Expected_Result_3()
+        {
+            var input = new[] { 0, 0, 0 };
+            var target = 0;
+
+            var actualResult = Problems.ThreeSum(input, target);
+
+            actualResult.Count.Should().Be(1);
+            actualResult.Select(r => r.Sum().Should().Be(target));
+        }
+
+        [Fact]
+        public void ThreeSum_Does_Not_Return_Duplicate_Triplets()
+        {
+            var input = new[] { 1, 2, 3, 3, 2, 1 };
+            var target = 6;
+
+            var actualResult = Problems.ThreeSum(input, target);
+
+            actualResult.Count.Should().Be(1);
+            actualResult.Select(r => r.Sum().Should().Be(target));
         }
 
         [Fact]

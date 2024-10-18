@@ -1,5 +1,7 @@
 ﻿namespace LeetcodeMsft.Lib
 {
+    using System.Diagnostics.CodeAnalysis;
+
     public class Problems
     {
         /// <summary>
@@ -32,9 +34,16 @@
             return output;
         }
 
-        public static int[] ThreeSum(int[] input, int target)
+        /// <summary>
+        /// Finds all triplets in the input array that sum up to the target value.
+        /// </summary>
+        /// <param name="input">The input array.</param>
+        /// <param name="target">The target value.</param>
+        /// <returns>A list of arrays, each containing three numbers that sum up to the target value.</returns>
+        public static HashSet<int[]> ThreeSum(int[] input, int target)
         {
             Array.Sort(input);
+            var output = new HashSet<int[]>(new IntArrayComparer());
 
             for (var i = 0; i < input.Length; i++)
             {
@@ -43,14 +52,19 @@
 
                 while (left < right)
                 {
-                    var sum = input[i] + input[left] + input[right];
+                    var currentNumber = input[i];
+                    var leftNumber = input[left];
+                    var rightNumber = input[right];
+
+                    var sum = currentNumber + leftNumber + rightNumber;
 
                     if (sum == target)
                     {
-                        return new[] { i, left, right };
-                    }
+                        output.Add(new[] { currentNumber, leftNumber, rightNumber });
+                        break;
 
-                    if (sum < target)
+                    }
+                    else if (sum < target)
                     {
                         left++;
                     }
@@ -61,7 +75,7 @@
                 }
             }
 
-            return Array.Empty<int>();
+            return output;
         }
 
         /// <summary>
@@ -135,6 +149,60 @@
             }
 
             return results;
+        }
+    }
+
+    internal class IntArrayComparer : IEqualityComparer<int[]>
+    {
+        /// <summary>
+        /// Determines whether two int arrays are equal.
+        /// </summary>
+        /// <param name="x">The first int array.</param>
+        /// <param name="y">The second int array.</param>
+        /// <returns>True if the int arrays are equal; otherwise, false.</returns>
+        public bool Equals(int[]? x, int[]? y)
+        {
+            if (x == null || y == null)
+            {
+                return false;
+            }
+
+            if (x.Length != y.Length)
+            {
+                return false;
+            }
+
+            Array.Sort(x);
+            Array.Sort(y);
+
+            for (var i = 0; i < x.Length; i++)
+            {
+                if (x[i] != y[i])
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Calculates the hash code for the specified int array.
+        /// </summary>
+        /// <param name="obj">The int array.</param>
+        /// <returns>The calculated hash code.</returns>
+        public int GetHashCode([DisallowNull] int[] obj)
+        {
+            Array.Sort(obj);
+
+            var hash = 39;
+
+            foreach (var n in obj)
+            {
+                hash = (hash * 31) + n;
+            }
+
+            return hash;
         }
     }
 }

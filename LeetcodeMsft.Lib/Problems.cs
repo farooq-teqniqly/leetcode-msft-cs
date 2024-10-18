@@ -2,6 +2,12 @@
 {
     public class Problems
     {
+        /// <summary>
+        /// Finds two numbers in the input array that add up to the target value.
+        /// </summary>
+        /// <param name="input">The input array.</param>
+        /// <param name="target">The target value.</param>
+        /// <returns>An array containing the indexes of the two numbers that add up to the target value.</returns>
         public static int[] TwoSum(int[] input, int target)
         {
             if (input == null)
@@ -28,6 +34,12 @@
             return Array.Empty<int>();
         }
 
+        /// <summary>
+        /// Finds two numbers in the input array that add up to the target value.
+        /// </summary>
+        /// <param name="input">The input array.</param>
+        /// <param name="target">The target value.</param>
+        /// <returns>An array containing the indexes of the two numbers that add up to the target value.</returns>
         public static List<int[]> TwoSumMultipleAnswersPossible(int[] input, int target)
         {
             if (input == null)

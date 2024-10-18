@@ -17,7 +17,7 @@ namespace LeetcodeMsft.Lib.Tests
         [Fact]
         public void TwoSum_When_Input_Null_Throws()
         {
-            var badAct = () => Problems.TwoSum(null, 0);
+            var badAct = () => Problems.TwoSum(null!, 0);
             badAct.Should().Throw<ArgumentNullException>();
         }
 
@@ -39,7 +39,7 @@ namespace LeetcodeMsft.Lib.Tests
         [Fact]
         public void TwoSumMultipleAnswersPossible_When_Input_Null_Throws()
         {
-            var badAct = () => Problems.TwoSumMultipleAnswersPossible(null, 0);
+            var badAct = () => Problems.TwoSumMultipleAnswersPossible(null!, 0);
             badAct.Should().Throw<ArgumentNullException>();
         }
     }

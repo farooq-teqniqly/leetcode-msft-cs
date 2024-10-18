@@ -42,5 +42,20 @@ namespace LeetcodeMsft.Lib.Tests
             var badAct = () => Problems.TwoSumMultipleAnswersPossible(null!, 0);
             badAct.Should().Throw<ArgumentNullException>();
         }
+
+        [Theory]
+        [InlineData(new[] { 1, 6, 4, 10, 2, 5 }, new[] { -1, 1, 1, 4, 1, 2 })]
+        [InlineData(new[] { 10, 10, 10 }, new[] { -1, -1, -1 })]
+        public void NearestSmallerNumber_Returns_Expected_Result(int[] input, int[] expectedResult)
+        {
+            Problems.NearestSmallerNumber(input).SequenceEqual(expectedResult).Should().BeTrue();
+        }
+
+        [Fact]
+        public void NearestSmallerNumber_When_Input_Null_Throws()
+        {
+            var badAct = () => Problems.NearestSmallerNumber(null!);
+            badAct.Should().Throw<ArgumentNullException>();
+        }
     }
 }

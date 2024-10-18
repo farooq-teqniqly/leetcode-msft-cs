@@ -3,6 +3,36 @@
     public class Problems
     {
         /// <summary>
+        /// Finds the nearest smaller number for each element in the input array.
+        /// </summary>
+        /// <param name="input">The input array.</param>
+        /// <returns>An array containing the nearest smaller number for each element in the input array.</returns>
+        public static int[] NearestSmallerNumber(int[] input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            var output = new int[input.Length];
+            var stack = new Stack<int>();
+
+            for (var i = 0; i < input.Length; i++)
+            {
+                while (stack.Count != 0 && stack.Peek() >= input[i])
+                {
+                    var _ = stack.Pop();
+                }
+
+                output[i] = stack.Count == 0 ? -1 : stack.Peek();
+
+                stack.Push(input[i]);
+            }
+
+            return output;
+        }
+
+        /// <summary>
         /// Finds two numbers in the input array that add up to the target value.
         /// </summary>
         /// <param name="input">The input array.</param>

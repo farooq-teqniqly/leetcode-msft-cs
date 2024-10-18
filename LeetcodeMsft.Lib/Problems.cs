@@ -187,6 +187,47 @@
 
             return stack.Count == 0;
         }
+
+        /// <summary>
+        /// Calculates the container with the most water in the input array.
+        /// </summary>
+        /// <param name="input">The input array.</param>
+        /// <returns>The maximum area of water that can be contained.</returns>
+        public static int ContainerWithMostWater(int[] input)
+        {
+            ArgumentNullException.ThrowIfNull(input);
+
+            var left = 0;
+            var right = input.Length - 1;
+            var maxArea = int.MinValue;
+
+            while (left < right)
+            {
+                var leftNum = input[left];
+                var rightNum = input[right];
+
+                if (leftNum <= 0 || rightNum <= 0)
+                {
+                    throw new ArgumentException("All array elements must be positive integers.");
+                }
+
+                var minNum = leftNum <= rightNum ? leftNum : rightNum;
+                
+                var area = minNum * (right - left);
+                maxArea = maxArea < area ? area : maxArea;
+
+                if (leftNum <= rightNum)
+                {
+                    left++;
+                }
+                else
+                {
+                    right--;
+                }
+            }
+
+            return maxArea;
+        }
     }
 
     internal class IntArrayComparer : IEqualityComparer<int[]>

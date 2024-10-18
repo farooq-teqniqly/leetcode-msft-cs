@@ -133,5 +133,30 @@ namespace LeetcodeMsft.Lib.Tests
         {
             Problems.ValidParentheses(input).Should().Be(expectedResult);
         }
+
+        [Theory]
+        [InlineData(new[] { 1, 8, 6, 2, 5, 4, 8, 3, 7 }, 49)]
+        [InlineData(new[] {1, 1}, 1)]
+        [InlineData(new[] {4, 2}, 2)]
+        public void ContainerWithMostWater_Returns_Expected_Result(int[] input, int expectedResult)
+        {
+            Problems.ContainerWithMostWater(input).Should().Be(expectedResult);
+        }
+
+        [Theory]
+        [InlineData(new[] {1, 0, 3})]
+        [InlineData(new[] {1, 1, 3, -1})]
+        public void ContainerWithMostWater_When_Element_Is_Less_Than_One_Throws(int[] input)
+        {
+            var badAct = () => Problems.ContainerWithMostWater(input);
+            badAct.Should().Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void ContainerWithMostWater_When_Input_Null_Throws()
+        {
+            var badAct = () => Problems.ContainerWithMostWater(null!);
+            badAct.Should().Throw<ArgumentNullException>();
+        }
     }
 }

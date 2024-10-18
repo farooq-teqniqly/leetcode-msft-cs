@@ -71,7 +71,7 @@ namespace LeetcodeMsft.Lib.Tests
 
             var actualResult = Problems.ThreeSum(input, target);
 
-            actualResult.Select(r => r.Sum().Should().Be(target));
+            var _ = actualResult.Select(r => r.Sum().Should().Be(target));
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace LeetcodeMsft.Lib.Tests
             var actualResult = Problems.ThreeSum(input, target);
 
             actualResult.Count.Should().Be(1);
-            actualResult.Select(r => r.Sum().Should().Be(target));
+            var _ = actualResult.Select(r => r.Sum().Should().Be(target));
         }
 
         [Fact]
@@ -106,7 +106,7 @@ namespace LeetcodeMsft.Lib.Tests
             var actualResult = Problems.ThreeSum(input, target);
 
             actualResult.Count.Should().Be(1);
-            actualResult.Select(r => r.Sum().Should().Be(target));
+            var _ = actualResult.Select(r => r.Sum().Should().Be(target));
         }
 
         [Fact]

@@ -37,5 +37,22 @@ namespace LeetcodeMsft.Lib.Tests
             var badAct = () => ArrayProblems.ContainsDuplicates(null!);
             badAct.Should().Throw<ArgumentNullException>();
         }
+
+        [Theory]
+        [InlineData(new[] { 2, 5, 1, 6, 1 }, new[] { 13, 6, 0, 7, 14 })]
+        [InlineData(new[] { 3, 3, 3 }, new[] { 6, 0, 6 })]
+        [InlineData(new[] { 1, 2, 3, 4, 5 }, new[] { 14, 11, 6, 1, 10 })]
+        [InlineData(new int[] { }, new int[] { })]
+        public void LeftRightSum_Returns_Expected_Result(int[] input, int[] expectedResult)
+        {
+            ArrayProblems.LeftRightSum(input).Should().Equal(expectedResult);
+        }
+
+        [Fact]
+        public void LeftRightSum_When_Input_Null_Throws()
+        {
+            var badAct = () => ArrayProblems.LeftRightSum(null!);
+            badAct.Should().Throw<ArgumentNullException>();
+        }
     }
 }

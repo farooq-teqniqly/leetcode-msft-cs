@@ -40,5 +40,27 @@
 
             return false;
         }
+
+        /// <summary>
+        /// Calculates the absolute difference between the left and right sum of each element in the input array.
+        /// </summary>
+        /// <param name="input">The input array.</param>
+        /// <returns>An array containing the absolute difference between the left and right sum of each element.</returns>
+        public static int[] LeftRightSum(int[] input)
+        {
+            var total = input.Sum();
+            var output = new int[input.Length];
+            var leftSum = 0;
+
+            for (var i = 0; i < input.Length; i++)
+            {
+                var currentNum = input[i];
+                var rightSum = total - leftSum - currentNum;
+                output[i] = Math.Abs(leftSum - rightSum);
+                leftSum += currentNum;
+            }
+
+            return output;
+        }
     }
 }

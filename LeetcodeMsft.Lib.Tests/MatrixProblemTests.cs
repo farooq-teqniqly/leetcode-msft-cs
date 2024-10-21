@@ -52,5 +52,54 @@ namespace LeetcodeMsft.Lib.Tests
             var badAct = () => MatrixProblems.RichestCustomer(null!);
             badAct.Should().Throw<ArgumentNullException>();
         }
+
+        [Fact]
+        public void DiagonalSum_Returns_Expected_Result()
+        {
+            var testData = new List<Tuple<int[][], int>>();
+
+            testData.Add(new(
+                [
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9]
+                ], 25));
+
+            testData.Add(new(
+            [
+                [1, 0],
+                [0, 1]
+            ], 2));
+
+            testData.Add(new(
+            [
+                [5]
+            ], 5));
+
+            foreach (var item in testData)
+            {
+                MatrixProblems.DiagonalSum(item.Item1).Should().Be(item.Item2);
+            }
+        }
+
+        [Fact]
+        public void DiagonalSum_When_Input_Null_Throws()
+        {
+            var badAct = () => MatrixProblems.DiagonalSum(null!);
+            badAct.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void DiagonalSum_When_Matrix_Not_Square_Throws()
+        {
+            int[][] input = [
+                [1, 2, 3],
+                [4, 5],
+                [7, 8, 9]
+            ];
+
+            var badAct = () => MatrixProblems.DiagonalSum(input);
+            badAct.Should().Throw<ArgumentException>();
+        }
     }
 }

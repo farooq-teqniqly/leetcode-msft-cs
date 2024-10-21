@@ -31,5 +31,39 @@
 
             return maxWealth;
         }
+
+        /// <summary>
+        /// Calculates the sum of the diagonal elements in a square matrix.
+        /// </summary>
+        /// <param name="input">The input matrix.</param>
+        /// <returns>The sum of the diagonal elements.</returns>
+        public static int DiagonalSum(int[][] input)
+        {
+            ArgumentNullException.ThrowIfNull(input);
+
+            var sum = 0;
+            var rowCount = input.Length;
+
+            foreach (var row in input)
+            {
+                if (row.Length != rowCount)
+                {
+                    throw new ArgumentException("The input matrix must be square.", nameof(input));
+                }
+            }
+
+            for (var i = 0; i < rowCount; i++)
+            {
+                sum += input[i][i];
+                sum += input[i][rowCount - i - 1];
+            }
+
+            if (rowCount % 2 != 0)
+            {
+                sum -= input[rowCount / 2][rowCount / 2];
+            }
+
+            return sum;
+        }
     }
 }

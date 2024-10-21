@@ -26,6 +26,7 @@ namespace LeetcodeMsft.Lib.Tests
         [Theory]
         [InlineData(new[] { 1, 2, 3, 4 }, false)]
         [InlineData(new[] { 1, 2, 3, 1 }, true)]
+        [InlineData(new int[] { }, false)]
         public void ContainsDuplicate_Returns_Expected_Result(int[] input, bool expectedResult)
         {
             ArrayProblems.ContainsDuplicates(input).Should().Be(expectedResult);

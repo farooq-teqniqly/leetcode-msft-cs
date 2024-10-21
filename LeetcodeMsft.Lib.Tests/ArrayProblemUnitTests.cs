@@ -55,5 +55,23 @@ namespace LeetcodeMsft.Lib.Tests
             var badAct = () => ArrayProblems.LeftRightSum(null!);
             badAct.Should().Throw<ArgumentNullException>();
         }
+
+        [Theory]
+        [InlineData(new[] { 2, 2, -3, -1, 2, 1, -5 }, 4)]
+        [InlineData(new[] { 4, -3, 2, -1, -2 }, 4)]
+        [InlineData(new[] { -5, 1, 5, 0, -7 }, 1)]
+        [InlineData(new[] { -1 }, 0)]
+        [InlineData(new int[] { }, 0)]
+        public void MaxAltitude_Returns_Expected_Result(int[] input, int expectedResult)
+        {
+            ArrayProblems.MaxAltitude(input).Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public void MaxAltitude_When_Input_Null_Throws()
+        {
+            var badAct = () => ArrayProblems.MaxAltitude(null!);
+            badAct.Should().Throw<ArgumentNullException>();
+        }
     }
 }

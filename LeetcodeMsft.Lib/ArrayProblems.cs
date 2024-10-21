@@ -62,5 +62,30 @@
 
             return output;
         }
+
+        /// <summary>
+        /// Calculates the maximum altitude reached during a journey.
+        /// </summary>
+        /// <param name="input">The array of altitude changes during the journey.</param>
+        /// <returns>The maximum altitude reached.</returns>
+        public static int MaxAltitude(int[] input)
+        {
+            ArgumentNullException.ThrowIfNull(input);
+
+            var maxAltitude = 0;
+            var currentAltitude = 0;
+
+            foreach (var number in input)
+            {
+                currentAltitude += number;
+
+                if (currentAltitude > maxAltitude)
+                {
+                    maxAltitude = currentAltitude;
+                }
+            }
+
+            return maxAltitude;
+        }
     }
 }

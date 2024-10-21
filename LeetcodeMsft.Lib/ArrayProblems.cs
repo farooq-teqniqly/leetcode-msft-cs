@@ -18,5 +18,27 @@
 
             return input;
         }
+
+        /// <summary>
+        /// Checks if the input array contains any duplicates.
+        /// </summary>
+        /// <param name="input">The input array.</param>
+        /// <returns>True if the array contains duplicates, false otherwise.</returns>
+        public static bool ContainsDuplicates(int[] input)
+        {
+            ArgumentNullException.ThrowIfNull(input);
+
+            var set = new HashSet<int>();
+
+            foreach (var number in input)
+            {
+                if (!set.Add(number))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

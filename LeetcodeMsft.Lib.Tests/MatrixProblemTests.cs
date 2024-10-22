@@ -101,5 +101,50 @@ namespace LeetcodeMsft.Lib.Tests
             var badAct = () => MatrixProblems.DiagonalSum(input);
             badAct.Should().Throw<ArgumentException>();
         }
+
+        [Fact]
+        public void MaxOnes_Returns_Expected_Results()
+        {
+            var testData = new List<Tuple<int[][], int[]>>
+            {
+                new(
+                [
+                    [1, 0],
+                    [1, 1],
+                    [0, 1]
+                ], [1, 2]),
+
+                new(
+                [
+                    [0, 1, 1],
+                    [0, 1, 1],
+                    [1, 1, 1]
+                ], [2, 3]),
+
+                new(
+                [
+                    [1, 0, 1],
+                    [0, 0, 1],
+                    [1, 1, 0]
+                ], [0, 2]),
+
+                new(
+                [
+                    []
+                ], [0, 0])
+            };
+
+            foreach (var item in testData)
+            {
+                MatrixProblems.MaxOnes(item.Item1).Should().Equal(item.Item2);
+            }
+        }
+
+        [Fact]
+        public void MaxOnes_When_Input_Null_Throws()
+        {
+            var badAct = () => MatrixProblems.MaxOnes(null!);
+            badAct.Should().Throw<ArgumentNullException>();
+        }
     }
 }

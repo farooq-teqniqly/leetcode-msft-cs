@@ -65,5 +65,40 @@
 
             return sum;
         }
+
+        /// <summary>
+        /// Finds the row index and count of the row with the maximum number of ones in a matrix.
+        /// </summary>
+        /// <param name="input">The input matrix.</param>
+        /// <returns>An array containing the row index and count of the row with the maximum number of ones.</returns>
+        public static int[] MaxOnes(int[][] input)
+        {
+            ArgumentNullException.ThrowIfNull(input);
+
+            var rowCount = input.Length;
+            var maxOnesCount = 0;
+            var maxOnesIndex = 0;
+
+            for (var i = 0; i < rowCount; i++)
+            {
+                var currentOnesCount = 0;
+
+                for (var j = 0; j < input[i].Length; j++)
+                {
+                    if (input[i][j] == 1)
+                    {
+                        currentOnesCount++;
+                    }
+                }
+
+                if (currentOnesCount > maxOnesCount)
+                {
+                    maxOnesCount = currentOnesCount;
+                    maxOnesIndex = i;
+                }
+            }
+
+            return [maxOnesIndex, maxOnesCount];
+        }
     }
 }

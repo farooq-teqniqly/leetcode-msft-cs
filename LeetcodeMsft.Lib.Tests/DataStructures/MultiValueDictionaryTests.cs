@@ -4,14 +4,13 @@ using LeetcodeMsft.Lib.DataStructures;
 namespace LeetcodeMsft.Lib.Tests.DataStructures;
 public class MultiValueDictionaryTests
 {
-    private readonly MultiValueDictionary<string, string> _mvd = [];
+    private readonly MultiValueDictionary<string, string> _mvd = new();
 
     [Fact]
     public void Can_Add_Key_With_Single_Value()
     {
-        _mvd.Add("bird", "eagle").Should().Be(true);
-        _mvd.Get("bird").Count().Should().Be(1);
-        _mvd.Get("bird").First().Should().Be("eagle");
+        _mvd.Add("bird", "eagle").Should().BeTrue();
+        _mvd.Get("bird").Should().ContainSingle().Which.Should().Be("eagle");
     }
 
     [Fact]
@@ -19,9 +18,7 @@ public class MultiValueDictionaryTests
     {
         _mvd.Add("bird", "eagle");
         _mvd.Add("bird", "sparrow");
-        _mvd.Get("bird").Count().Should().Be(2);
-        _mvd.Get("bird").First().Should().Be("eagle");
-        _mvd.Get("bird").Skip(1).First().Should().Be("sparrow");
+        _mvd.Get("bird").Should().HaveCount(2).And.ContainInOrder("eagle", "sparrow");
     }
 
     [Fact]
@@ -29,14 +26,13 @@ public class MultiValueDictionaryTests
     {
         _mvd.Add("bird", "eagle");
         _mvd.Add("bird", "eagle").Should().BeFalse();
-        _mvd.Get("bird").Count().Should().Be(1);
-        _mvd.Get("bird").First().Should().Be("eagle");
+        _mvd.Get("bird").Should().ContainSingle().Which.Should().Be("eagle");
     }
 
     [Fact]
     public void Get_When_Key_Does_Not_Exist_Throws()
     {
-        var act = () => _mvd.Get("foo");
+        Action act = () => _mvd.Get("foo");
 
         act.Should().Throw<KeyNotFoundException>();
     }
@@ -46,30 +42,27 @@ public class MultiValueDictionaryTests
     {
         _mvd.Add("bird", "eagle");
         _mvd.Add("bird", "sparrow");
-        _mvd.GetOrDefault("bird")!.Count().Should().Be(2);
-        _mvd.GetOrDefault("bird")!.First().Should().Be("eagle");
-        _mvd.GetOrDefault("bird")!.Skip(1).First().Should().Be("sparrow");
+        _mvd.GetOrDefault("bird").Should().HaveCount(2).And.ContainInOrder("eagle", "sparrow");
     }
 
     [Fact]
     public void GetOrDefault_When_Key_Does_Not_Exist_Returns_Default_Value_For_Type()
     {
         _mvd.GetOrDefault("foo").Should().BeNull();
-
     }
 
     [Fact]
     public void Can_Remove_Key_Along_With_Its_Values()
     {
         _mvd.Add("bird", "eagle");
-        _mvd.Remove("bird").Should().Be(true);
+        _mvd.Remove("bird").Should().BeTrue();
         _mvd.GetOrDefault("bird").Should().BeNull();
     }
 
     [Fact]
     public void Remove_When_Key_Not_Found_Returns_False()
     {
-        _mvd.Remove("foo").Should().Be(false);
+        _mvd.Remove("foo").Should().BeFalse();
     }
 
     [Fact]
@@ -77,18 +70,16 @@ public class MultiValueDictionaryTests
     {
         _mvd.Add("bird", "eagle");
         _mvd.Add("bird", "sparrow");
-        _mvd.Remove("bird", "eagle").Should().Be(true);
-        _mvd.Get("bird").Count().Should().Be(1);
-        _mvd.Get("bird").First().Should().Be("sparrow");
+        _mvd.Remove("bird", "eagle").Should().BeTrue();
+        _mvd.Get("bird").Should().ContainSingle().Which.Should().Be("sparrow");
     }
 
     [Fact]
     public void Remove_Value_When_Value_Does_Not_Exist_Returns_False()
     {
         _mvd.Add("bird", "eagle");
-        _mvd.Remove("bird", "sparrow").Should().Be(false);
-        _mvd.Get("bird").Count().Should().Be(1);
-        _mvd.Get("bird").First().Should().Be("eagle");
+        _mvd.Remove("bird", "sparrow").Should().BeFalse();
+        _mvd.Get("bird").Should().ContainSingle().Which.Should().Be("eagle");
     }
 
     [Fact]
@@ -97,7 +88,7 @@ public class MultiValueDictionaryTests
         _mvd.Add("bird", "eagle");
         _mvd.Add("bird", "sparrow");
         _mvd.Clear("bird");
-        _mvd.Get("bird").Count().Should().Be(0);
+        _mvd.Get("bird").Should().BeEmpty();
     }
 
     [Fact]
@@ -110,15 +101,11 @@ public class MultiValueDictionaryTests
 
         var keyValuePairs = _mvd.Flatten().ToList();
 
-        keyValuePairs.Count.Should().Be(4);
-
-        keyValuePairs.First().Should().BeEquivalentTo(new KeyValuePair<string, string>("bird", "eagle"));
-
-        keyValuePairs.Skip(1).First().Should().BeEquivalentTo(new KeyValuePair<string, string>("bird", "sparrow"));
-
-        keyValuePairs.Skip(2).First().Should().BeEquivalentTo(new KeyValuePair<string, string>("cat", "siamese"));
-
-        keyValuePairs.Skip(3).First().Should().BeEquivalentTo(new KeyValuePair<string, string>("cat", "russian blue"));
+        keyValuePairs.Should().HaveCount(4);
+        keyValuePairs[0].Should().BeEquivalentTo(new KeyValuePair<string, string>("bird", "eagle"));
+        keyValuePairs[1].Should().BeEquivalentTo(new KeyValuePair<string, string>("bird", "sparrow"));
+        keyValuePairs[2].Should().BeEquivalentTo(new KeyValuePair<string, string>("cat", "siamese"));
+        keyValuePairs[3].Should().BeEquivalentTo(new KeyValuePair<string, string>("cat", "russian blue"));
     }
 
     [Fact]
@@ -128,12 +115,9 @@ public class MultiValueDictionaryTests
         var right = new MultiValueDictionary<string, string> { { "dog", "husky" } };
         var union = left.UnionAll(right);
 
-        union.Get("bird").Count().Should().Be(1);
-        union.Get("bird").First().Should().Be("eagle");
-        union.Get("cat").Count().Should().Be(1);
-        union.Get("cat").First().Should().Be("siamese");
-        union.Get("dog").Count().Should().Be(1);
-        union.Get("dog").First().Should().Be("husky");
+        union.Get("bird").Should().ContainSingle().Which.Should().Be("eagle");
+        union.Get("cat").Should().ContainSingle().Which.Should().Be("siamese");
+        union.Get("dog").Should().ContainSingle().Which.Should().Be("husky");
     }
 
     [Fact]
@@ -143,52 +127,42 @@ public class MultiValueDictionaryTests
         var left = new MultiValueDictionary<string, string> { { "dog", "husky" } };
         var union = left.UnionAll(right);
 
-        union.Get("bird").Count().Should().Be(1);
-        union.Get("bird").First().Should().Be("eagle");
-        union.Get("cat").Count().Should().Be(1);
-        union.Get("cat").First().Should().Be("siamese");
-        union.Get("dog").Count().Should().Be(1);
-        union.Get("dog").First().Should().Be("husky");
+        union.Get("bird").Should().ContainSingle().Which.Should().Be("eagle");
+        union.Get("cat").Should().ContainSingle().Which.Should().Be("siamese");
+        union.Get("dog").Should().ContainSingle().Which.Should().Be("husky");
     }
 
     [Fact]
     public void Union_Also_Unions_Values()
     {
-        var right = new MultiValueDictionary<string, string> { { "bird", "eagle" }};
+        var right = new MultiValueDictionary<string, string> { { "bird", "eagle" } };
         var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" } };
         var union = right.UnionAll(left);
 
-        union.Get("bird").Count().Should().Be(2);
-        union.Get("bird").First().Should().Be("eagle");
-        union.Get("bird").Skip(1).First().Should().Be("sparrow");
+        union.Get("bird").Should().HaveCount(2).And.ContainInOrder("eagle", "sparrow");
     }
 
     [Fact]
     public void Can_Get_Intersection()
     {
         var right = new MultiValueDictionary<string, string> { { "bird", "eagle" } };
-        var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" }, {"cat", "siamese"} };
+        var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" }, { "cat", "siamese" } };
 
         var intersection = right.Intersection(left);
-        intersection.Count().Should().Be(1);
-
-        intersection.Get("bird").Count().Should().Be(1);
-        intersection.Get("bird").First().Should().Be("eagle");
+        intersection.Should().HaveCount(1);
+        intersection.Get("bird").Should().ContainSingle().Which.Should().Be("eagle");
     }
 
     [Fact]
     public void Can_Get_Right_Difference()
     {
-        var right = new MultiValueDictionary<string, string> { { "bird", "robin" }, {"dog", "husky"} };
+        var right = new MultiValueDictionary<string, string> { { "bird", "robin" }, { "dog", "husky" } };
         var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" }, { "cat", "siamese" } };
 
         var difference = right.Difference(left);
-        difference.Count().Should().Be(2);
-
-        difference.Get("bird").Count().Should().Be(1);
-        difference.Get("bird").First().Should().Be("robin");
-        difference.Get("dog").Count().Should().Be(1);
-        difference.Get("dog").First().Should().Be("husky");
+        difference.Should().HaveCount(2);
+        difference.Get("bird").Should().ContainSingle().Which.Should().Be("robin");
+        difference.Get("dog").Should().ContainSingle().Which.Should().Be("husky");
     }
 
     [Fact]
@@ -198,30 +172,21 @@ public class MultiValueDictionaryTests
         var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" }, { "cat", "siamese" } };
 
         var difference = left.Difference(right);
-        difference.Select(kvp => kvp.Key).Distinct().Count().Should().Be(2);
-
-        difference.Get("bird").Count().Should().Be(2);
-        difference.Get("bird").First().Should().Be("sparrow");
-        difference.Get("bird").Skip(1).First().Should().Be("eagle");
-        difference.Get("cat").Count().Should().Be(1);
-        difference.Get("cat").First().Should().Be("siamese");
+        difference.Select(kvp => kvp.Key).Distinct().Should().HaveCount(2);
+        difference.Get("bird").Should().HaveCount(2).And.ContainInOrder("sparrow", "eagle");
+        difference.Get("cat").Should().ContainSingle().Which.Should().Be("siamese");
     }
 
     [Fact]
     public void Can_Get_Symmetric_Difference()
     {
-        var right = new MultiValueDictionary<string, string> { { "bird", "robin" }, {"bird", "falcon"}, { "dog", "husky" } };
+        var right = new MultiValueDictionary<string, string> { { "bird", "robin" }, { "bird", "falcon" }, { "dog", "husky" } };
         var left = new MultiValueDictionary<string, string> { { "bird", "robin" }, { "bird", "eagle" }, { "cat", "siamese" } };
 
         var difference = right.SymmetricDifference(left);
-        difference.Select(kvp => kvp.Key).Distinct().Count().Should().Be(3);
-
-        difference.Get("bird").Count().Should().Be(2);
-        difference.Get("bird").First().Should().Be("falcon");
-        difference.Get("bird").Skip(1).First().Should().Be("eagle");
-        difference.Get("cat").Count().Should().Be(1);
-        difference.Get("cat").First().Should().Be("siamese");
-        difference.Get("dog").Count().Should().Be(1);
-        difference.Get("dog").First().Should().Be("husky");
+        difference.Select(kvp => kvp.Key).Distinct().Should().HaveCount(3);
+        difference.Get("bird").Should().HaveCount(2).And.ContainInOrder("falcon", "eagle");
+        difference.Get("cat").Should().ContainSingle().Which.Should().Be("siamese");
+        difference.Get("dog").Should().ContainSingle().Which.Should().Be("husky");
     }
 }

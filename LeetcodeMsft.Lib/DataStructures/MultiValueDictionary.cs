@@ -1,9 +1,15 @@
 namespace LeetcodeMsft.Lib.DataStructures;
 
+/// <summary>
+/// Represents a dictionary that allows multiple values to be associated with a single key.
+/// </summary>
+/// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
+/// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
 public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TValue> where TKey : notnull
 {
     private readonly Dictionary<TKey, HashSet<TValue>> _dictionary = [];
 
+    /// <inheritdoc />
     public bool Add(TKey key, TValue value)
     {
         if (!_dictionary.TryGetValue(key, out _))
@@ -17,11 +23,13 @@ public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TV
         return true;
     }
 
+    /// <inheritdoc />
     public bool Remove(TKey key)
     {
         return _dictionary.Remove(key);
     }
 
+    /// <inheritdoc />
     public bool Remove(TKey key, TValue value)
     {
         var values = GetOrDefault(key);
@@ -29,6 +37,7 @@ public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TV
         return values is not null && ((HashSet<TValue>)values).Remove(value);
     }
 
+    /// <inheritdoc />
     public void Clear(TKey key)
     {
         var values = GetOrDefault(key);
@@ -41,6 +50,7 @@ public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TV
         ((HashSet<TValue>)values).Clear();
     }
 
+    /// <inheritdoc />
     public IEnumerable<TValue> Get(TKey key)
     {
         var values = GetOrDefault(key);
@@ -53,11 +63,13 @@ public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TV
         return values;
     }
 
+    /// <inheritdoc />
     public IEnumerable<TValue>? GetOrDefault(TKey key)
     {
         return _dictionary.GetValueOrDefault(key);
     }
 
+    /// <inheritdoc />
     public IEnumerable<KeyValuePair<TKey, TValue>> Flatten()
     {
         foreach (var key in _dictionary.Keys)

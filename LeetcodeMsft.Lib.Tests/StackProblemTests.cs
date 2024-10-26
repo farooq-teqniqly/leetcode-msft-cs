@@ -57,4 +57,24 @@ public class StackProblemTests
         var act = () => StackProblems.NextGreatestNumber(null!);
         act.Should().Throw<ArgumentNullException>();
     }
+
+    [Theory]
+    [InlineData(new[] { 34, 3, 31, 98, 92, 23 }, new[] { 3, 23, 31, 34, 92, 98 })]
+    [InlineData(new[] { 4, 3, 2, 10, 12, 1, 5, 6 }, new[] { 1, 2, 3, 4, 5, 6, 10, 12 })]
+    [InlineData(new[] { 20, 10, -5, -1 }, new[] { -5, -1, 10, 20 })]
+    [InlineData(new[] {1, 2, 3 }, new[] { 1, 2, 3 })]
+    [InlineData(new[] {1 }, new[] { 1 })]
+    [InlineData(new int[] {}, new int[] {})]
+    public void StackSort_Returns_Expected_Result(int[] input, int[] expectedResult)
+
+    {
+        StackProblems.StackSort(input).Should().Equal(expectedResult);
+    }
+
+    [Fact]
+    public void StackSort_When_Input_Null_Throws()
+    {
+        var act = () => StackProblems.StackSort(null!);
+        act.Should().Throw<ArgumentNullException>();
+    }
 }

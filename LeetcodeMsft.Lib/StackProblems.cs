@@ -100,4 +100,37 @@ public class StackProblems
 
         return output;
     }
+
+    /// <summary>
+    /// Sorts an array of integers using a stack.
+    /// </summary>
+    /// <param name="input">The input array to be sorted.</param>
+    /// <returns>The sorted array.</returns>
+    public static int[] StackSort(int[] input)
+    {
+        ArgumentNullException.ThrowIfNull(input);
+
+        var unsortedStack = new Stack<int>();
+
+        foreach (var number in input)
+        {
+            unsortedStack.Push(number);
+        }
+
+        var tempStack = new Stack<int>();
+
+        while (unsortedStack.Count != 0)
+        {
+            var currentNum = unsortedStack.Pop();
+
+            while (tempStack.Count != 0 && tempStack.Peek() <= currentNum)
+            {
+                unsortedStack.Push(tempStack.Pop());
+            }
+
+            tempStack.Push(currentNum);
+        }
+
+        return tempStack.ToArray();
+    }
 }

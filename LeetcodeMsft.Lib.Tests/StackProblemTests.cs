@@ -38,4 +38,23 @@ public class StackProblemTests
         var act = () => StackProblems.DecimalToBinary(-1);
         act.Should().Throw<ArgumentOutOfRangeException>();
     }
+
+    [Theory]
+    [InlineData(new[] { 4, 5, 2, 25 }, new[] { 5, 25, 25, -1 })]
+    [InlineData(new[] { 13, 7, 6, 12 }, new[] {-1, 12, 12, -1 })]
+    [InlineData(new[] { 1, 2, 3, 4, 5 }, new[] {2 ,3, 4, 5, -1 })]
+    [InlineData(new[] { 0 }, new[] { -1 })]
+    [InlineData(new[] { 0, 0 }, new[] { -1, -1 })]
+    [InlineData(new int[] {}, new int[] {})]
+    public void NextGreatestNumber_Returns_Expected_Result(int[] input, int[] expectedResult)
+    {
+        StackProblems.NextGreatestNumber(input).Should().Equal(expectedResult);
+    }
+
+    [Fact]
+    public void NextGreatestNumber_When_Input_Null_Throws()
+    {
+        var act = () => StackProblems.NextGreatestNumber(null!);
+        act.Should().Throw<ArgumentNullException>();
+    }
 }

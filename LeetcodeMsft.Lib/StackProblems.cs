@@ -64,4 +64,40 @@ public class StackProblems
         
         return output.ToString();
     }
+
+    /// <summary>
+    /// Finds the next greatest number for each element in the input array.
+    /// </summary>
+    /// <param name="input">The input array.</param>
+    /// <returns>An array containing the next greatest number for each element in the input array.</returns>
+    public static int[] NextGreatestNumber(int[] input)
+    {
+        ArgumentNullException.ThrowIfNull(input);
+
+        var output = new int[input.Length];
+        var stack = new Stack<int>();
+
+        for (var i = input.Length - 1; i >= 0; i--)
+        {
+            var currentNum = input[i];
+
+            while (stack.Count != 0 && stack.Peek() <= currentNum)
+            {
+                stack.Pop();
+            }
+
+            if (stack.Count == 0)
+            {
+                output[i] = -1;
+            }
+            else
+            {
+                output[i] = stack.Peek();
+            }
+
+            stack.Push(currentNum);
+        }
+
+        return output;
+    }
 }

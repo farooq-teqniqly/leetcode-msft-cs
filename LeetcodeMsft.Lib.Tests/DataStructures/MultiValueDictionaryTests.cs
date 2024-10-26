@@ -1,11 +1,10 @@
 using FluentAssertions;
 using LeetcodeMsft.Lib.DataStructures;
-using Microsoft.VisualBasic;
 
 namespace LeetcodeMsft.Lib.Tests.DataStructures;
 public class MultiValueDictionaryTests
 {
-    private readonly MultiValueDictionary<string, string> _mvd = new();
+    private readonly MultiValueDictionary<string, string> _mvd = [];
 
     [Fact]
     public void Can_Add_Key_With_Single_Value()
@@ -111,7 +110,7 @@ public class MultiValueDictionaryTests
 
         var keyValuePairs = _mvd.Flatten().ToList();
 
-        keyValuePairs.Count().Should().Be(4);
+        keyValuePairs.Count.Should().Be(4);
 
         keyValuePairs.First().Should().BeEquivalentTo(new KeyValuePair<string, string>("bird", "eagle"));
 
@@ -199,12 +198,30 @@ public class MultiValueDictionaryTests
         var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" }, { "cat", "siamese" } };
 
         var difference = left.Difference(right);
-        difference.Count().Should().Be(3);
+        difference.Select(kvp => kvp.Key).Distinct().Count().Should().Be(2);
 
         difference.Get("bird").Count().Should().Be(2);
         difference.Get("bird").First().Should().Be("sparrow");
         difference.Get("bird").Skip(1).First().Should().Be("eagle");
         difference.Get("cat").Count().Should().Be(1);
         difference.Get("cat").First().Should().Be("siamese");
+    }
+
+    [Fact]
+    public void Can_Get_Symmetric_Difference()
+    {
+        var right = new MultiValueDictionary<string, string> { { "bird", "robin" }, {"bird", "falcon"}, { "dog", "husky" } };
+        var left = new MultiValueDictionary<string, string> { { "bird", "robin" }, { "bird", "eagle" }, { "cat", "siamese" } };
+
+        var difference = right.SymmetricDifference(left);
+        difference.Select(kvp => kvp.Key).Distinct().Count().Should().Be(3);
+
+        difference.Get("bird").Count().Should().Be(2);
+        difference.Get("bird").First().Should().Be("falcon");
+        difference.Get("bird").Skip(1).First().Should().Be("eagle");
+        difference.Get("cat").Count().Should().Be(1);
+        difference.Get("cat").First().Should().Be("siamese");
+        difference.Get("dog").Count().Should().Be(1);
+        difference.Get("dog").First().Should().Be("husky");
     }
 }

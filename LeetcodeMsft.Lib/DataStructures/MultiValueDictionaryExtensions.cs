@@ -89,4 +89,26 @@ public static class MultiValueDictionaryExtensions
 
         return difference;
     }
+
+    /// <summary>
+    /// Returns a multi-value dictionary that contains the symmetric difference between two multi-value dictionaries.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the keys in the dictionaries.</typeparam>
+    /// <typeparam name="TValue">The type of the values in the dictionaries.</typeparam>
+    /// <param name="this">The source multi-value dictionary.</param>
+    /// <param name="other">The multi-value dictionary to compare with.</param>
+    /// <returns>A multi-value dictionary that contains the symmetric difference between the input dictionaries.</returns>
+    /// <remarks>
+    /// The symmetric difference is determined by comparing the keys and values of the dictionaries.
+    /// The symmetric difference is the set of elements that are in either of the input dictionaries, but not in both.
+    /// </remarks>
+    public static IMultiValueDictionary<TKey, TValue> SymmetricDifference<TKey, TValue>(
+        this IMultiValueDictionary<TKey, TValue> @this,
+        IMultiValueDictionary<TKey, TValue> other) where TKey : notnull
+    {
+        var leftDifference = @this.Difference(other);
+        var rightDifference = other.Difference(@this);
+
+        return leftDifference.UnionAll(rightDifference);
+    }
 }

@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 
 namespace LeetcodeMsft.Lib.Tests;
 
@@ -56,25 +56,24 @@ public class MatrixProblemTests
     [Fact]
     public void DiagonalSum_Returns_Expected_Result()
     {
-        var testData = new List<Tuple<int[][], int>>();
-
-        testData.Add(new(
+        var testData = new List<Tuple<int[][], int>>
+        {
+            new(
             [
                 [1, 2, 3],
                 [4, 5, 6],
                 [7, 8, 9]
-            ], 25));
-
-        testData.Add(new(
-        [
-            [1, 0],
-            [0, 1]
-        ], 2));
-
-        testData.Add(new(
-        [
-            [5]
-        ], 5));
+            ], 25),
+            new(
+            [
+                [1, 0],
+                [0, 1]
+            ], 2),
+            new(
+            [
+                [5]
+            ], 5)
+        };
 
         foreach (var item in testData)
         {

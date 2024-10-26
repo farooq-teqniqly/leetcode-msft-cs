@@ -1,104 +1,103 @@
-﻿namespace LeetcodeMsft.Lib
+﻿namespace LeetcodeMsft.Lib;
+
+public class MatrixProblems
 {
-    public class MatrixProblems
+    /// <summary>
+    /// Calculates the wealth of the richest customer based on their accounts.
+    /// </summary>
+    /// <param name="accounts">The array of customer accounts.</param>
+    /// <returns>The wealth of the richest customer.</returns>
+    public static int RichestCustomer(int[][] accounts)
     {
-        /// <summary>
-        /// Calculates the wealth of the richest customer based on their accounts.
-        /// </summary>
-        /// <param name="accounts">The array of customer accounts.</param>
-        /// <returns>The wealth of the richest customer.</returns>
-        public static int RichestCustomer(int[][] accounts)
+        ArgumentNullException.ThrowIfNull(accounts);
+
+        var customerCount = accounts.Length;
+        var maxWealth = int.MinValue;
+
+        for (var i = 0; i < customerCount; i++)
         {
-            ArgumentNullException.ThrowIfNull(accounts);
+            var wealth = 0;
 
-            var customerCount = accounts.Length;
-            var maxWealth = int.MinValue;
-
-            for (var i = 0; i < customerCount; i++)
+            for (var j = 0; j < accounts[i].Length; j++)
             {
-                var wealth = 0;
-
-                for (var j = 0; j < accounts[i].Length; j++)
-                {
-                    wealth += accounts[i][j];
-                }
-
-                if (wealth > maxWealth)
-                {
-                    maxWealth = wealth;
-                }
+                wealth += accounts[i][j];
             }
 
-            return maxWealth;
+            if (wealth > maxWealth)
+            {
+                maxWealth = wealth;
+            }
         }
 
-        /// <summary>
-        /// Calculates the sum of the diagonal elements in a square matrix.
-        /// </summary>
-        /// <param name="input">The input matrix.</param>
-        /// <returns>The sum of the diagonal elements.</returns>
-        public static int DiagonalSum(int[][] input)
+        return maxWealth;
+    }
+
+    /// <summary>
+    /// Calculates the sum of the diagonal elements in a square matrix.
+    /// </summary>
+    /// <param name="input">The input matrix.</param>
+    /// <returns>The sum of the diagonal elements.</returns>
+    public static int DiagonalSum(int[][] input)
+    {
+        ArgumentNullException.ThrowIfNull(input);
+
+        var sum = 0;
+        var rowCount = input.Length;
+
+        foreach (var row in input)
         {
-            ArgumentNullException.ThrowIfNull(input);
-
-            var sum = 0;
-            var rowCount = input.Length;
-
-            foreach (var row in input)
+            if (row.Length != rowCount)
             {
-                if (row.Length != rowCount)
-                {
-                    throw new ArgumentException("The input matrix must be square.", nameof(input));
-                }
+                throw new ArgumentException("The input matrix must be square.", nameof(input));
             }
-
-            for (var i = 0; i < rowCount; i++)
-            {
-                sum += input[i][i];
-                sum += input[i][rowCount - i - 1];
-            }
-
-            if (rowCount % 2 != 0)
-            {
-                sum -= input[rowCount / 2][rowCount / 2];
-            }
-
-            return sum;
         }
 
-        /// <summary>
-        /// Finds the row index and count of the row with the maximum number of ones in a matrix.
-        /// </summary>
-        /// <param name="input">The input matrix.</param>
-        /// <returns>An array containing the row index and count of the row with the maximum number of ones.</returns>
-        public static int[] MaxOnes(int[][] input)
+        for (var i = 0; i < rowCount; i++)
         {
-            ArgumentNullException.ThrowIfNull(input);
+            sum += input[i][i];
+            sum += input[i][rowCount - i - 1];
+        }
 
-            var rowCount = input.Length;
-            var maxOnesCount = 0;
-            var maxOnesIndex = 0;
+        if (rowCount % 2 != 0)
+        {
+            sum -= input[rowCount / 2][rowCount / 2];
+        }
 
-            for (var i = 0; i < rowCount; i++)
+        return sum;
+    }
+
+    /// <summary>
+    /// Finds the row index and count of the row with the maximum number of ones in a matrix.
+    /// </summary>
+    /// <param name="input">The input matrix.</param>
+    /// <returns>An array containing the row index and count of the row with the maximum number of ones.</returns>
+    public static int[] MaxOnes(int[][] input)
+    {
+        ArgumentNullException.ThrowIfNull(input);
+
+        var rowCount = input.Length;
+        var maxOnesCount = 0;
+        var maxOnesIndex = 0;
+
+        for (var i = 0; i < rowCount; i++)
+        {
+            var currentOnesCount = 0;
+
+            for (var j = 0; j < input[i].Length; j++)
             {
-                var currentOnesCount = 0;
-
-                for (var j = 0; j < input[i].Length; j++)
+                if (input[i][j] == 1)
                 {
-                    if (input[i][j] == 1)
-                    {
-                        currentOnesCount++;
-                    }
-                }
-
-                if (currentOnesCount > maxOnesCount)
-                {
-                    maxOnesCount = currentOnesCount;
-                    maxOnesIndex = i;
+                    currentOnesCount++;
                 }
             }
 
-            return [maxOnesIndex, maxOnesCount];
+            if (currentOnesCount > maxOnesCount)
+            {
+                maxOnesCount = currentOnesCount;
+                maxOnesIndex = i;
+            }
         }
+
+        return [maxOnesIndex, maxOnesCount];
     }
 }

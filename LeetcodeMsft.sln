@@ -5,12 +5,13 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{93624518-7D18-4D7A-A42E-70E5F31AD87B}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetcodeMsft.Lib", "LeetcodeMsft.Lib\LeetcodeMsft.Lib.csproj", "{D292DE62-C67B-4D42-AC2D-7ABDEDAC2CC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeetcodeMsft.Lib", "LeetcodeMsft.Lib\LeetcodeMsft.Lib.csproj", "{D292DE62-C67B-4D42-AC2D-7ABDEDAC2CC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetcodeMsft.Lib.Tests", "LeetcodeMsft.Lib.Tests\LeetcodeMsft.Lib.Tests.csproj", "{E238602A-99A4-45F5-8BFB-B9DA39003555}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeetcodeMsft.Lib.Tests", "LeetcodeMsft.Lib.Tests\LeetcodeMsft.Lib.Tests.csproj", "{E238602A-99A4-45F5-8BFB-B9DA39003555}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

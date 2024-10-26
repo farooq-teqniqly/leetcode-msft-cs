@@ -28,7 +28,7 @@ public class MultiValueDictionaryTests
     public void Do_Not_Allow_Duplicate_Value_To_Be_Added_For_A_Key()
     {
         _mvd.Add("bird", "eagle");
-        _mvd.Add("bird", "eagle");
+        _mvd.Add("bird", "eagle").Should().BeFalse();
         _mvd.Get("bird").Count().Should().Be(1);
         _mvd.Get("bird").First().Should().Be("eagle");
     }

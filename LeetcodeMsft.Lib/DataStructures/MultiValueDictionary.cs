@@ -18,9 +18,7 @@ public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TV
             return true;
         }
 
-        _dictionary[key].Add(value);
-
-        return true;
+        return _dictionary[key].Add(value);
     }
 
     /// <inheritdoc />

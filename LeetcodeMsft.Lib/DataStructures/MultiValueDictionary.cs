@@ -38,14 +38,10 @@ public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TV
     /// <inheritdoc />
     public void Clear(TKey key)
     {
-        var values = GetOrDefault(key);
-
-        if (values is null)
+        if (_dictionary.TryGetValue(key, out var values))
         {
-            return;
+            values.Clear();
         }
-
-        ((HashSet<TValue>)values).Clear();
     }
 
     /// <inheritdoc />

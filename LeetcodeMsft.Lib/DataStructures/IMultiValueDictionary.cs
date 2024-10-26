@@ -5,7 +5,7 @@ namespace LeetcodeMsft.Lib.DataStructures;
 /// </summary>
 /// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
 /// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
-public interface IMultiValueDictionary<TKey, TValue>
+public interface IMultiValueDictionary<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
 {
     /// <summary>
     /// Adds a value to the multi-value dictionary.

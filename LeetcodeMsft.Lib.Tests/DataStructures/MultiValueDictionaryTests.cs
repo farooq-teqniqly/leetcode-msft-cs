@@ -1,5 +1,6 @@
 using FluentAssertions;
 using LeetcodeMsft.Lib.DataStructures;
+using Microsoft.VisualBasic;
 
 namespace LeetcodeMsft.Lib.Tests.DataStructures;
 public class MultiValueDictionaryTests
@@ -119,5 +120,91 @@ public class MultiValueDictionaryTests
         keyValuePairs.Skip(2).First().Should().BeEquivalentTo(new KeyValuePair<string, string>("cat", "siamese"));
 
         keyValuePairs.Skip(3).First().Should().BeEquivalentTo(new KeyValuePair<string, string>("cat", "russian blue"));
+    }
+
+    [Fact]
+    public void Can_Union_Two_Dictionaries_Left_Heavy()
+    {
+        var left = new MultiValueDictionary<string, string> { { "bird", "eagle" }, { "cat", "siamese" } };
+        var right = new MultiValueDictionary<string, string> { { "dog", "husky" } };
+        var union = left.UnionAll(right);
+
+        union.Get("bird").Count().Should().Be(1);
+        union.Get("bird").First().Should().Be("eagle");
+        union.Get("cat").Count().Should().Be(1);
+        union.Get("cat").First().Should().Be("siamese");
+        union.Get("dog").Count().Should().Be(1);
+        union.Get("dog").First().Should().Be("husky");
+    }
+
+    [Fact]
+    public void Can_Union_Two_Dictionaries_Right_Heavy()
+    {
+        var right = new MultiValueDictionary<string, string> { { "bird", "eagle" }, { "cat", "siamese" } };
+        var left = new MultiValueDictionary<string, string> { { "dog", "husky" } };
+        var union = left.UnionAll(right);
+
+        union.Get("bird").Count().Should().Be(1);
+        union.Get("bird").First().Should().Be("eagle");
+        union.Get("cat").Count().Should().Be(1);
+        union.Get("cat").First().Should().Be("siamese");
+        union.Get("dog").Count().Should().Be(1);
+        union.Get("dog").First().Should().Be("husky");
+    }
+
+    [Fact]
+    public void Union_Also_Unions_Values()
+    {
+        var right = new MultiValueDictionary<string, string> { { "bird", "eagle" }};
+        var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" } };
+        var union = right.UnionAll(left);
+
+        union.Get("bird").Count().Should().Be(2);
+        union.Get("bird").First().Should().Be("eagle");
+        union.Get("bird").Skip(1).First().Should().Be("sparrow");
+    }
+
+    [Fact]
+    public void Can_Get_Intersection()
+    {
+        var right = new MultiValueDictionary<string, string> { { "bird", "eagle" } };
+        var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" }, {"cat", "siamese"} };
+
+        var intersection = right.Intersection(left);
+        intersection.Count().Should().Be(1);
+
+        intersection.Get("bird").Count().Should().Be(1);
+        intersection.Get("bird").First().Should().Be("eagle");
+    }
+
+    [Fact]
+    public void Can_Get_Right_Difference()
+    {
+        var right = new MultiValueDictionary<string, string> { { "bird", "robin" }, {"dog", "husky"} };
+        var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" }, { "cat", "siamese" } };
+
+        var difference = right.Difference(left);
+        difference.Count().Should().Be(2);
+
+        difference.Get("bird").Count().Should().Be(1);
+        difference.Get("bird").First().Should().Be("robin");
+        difference.Get("dog").Count().Should().Be(1);
+        difference.Get("dog").First().Should().Be("husky");
+    }
+
+    [Fact]
+    public void Can_Get_Left_Difference()
+    {
+        var right = new MultiValueDictionary<string, string> { { "bird", "robin" }, { "dog", "husky" } };
+        var left = new MultiValueDictionary<string, string> { { "bird", "sparrow" }, { "bird", "eagle" }, { "cat", "siamese" } };
+
+        var difference = left.Difference(right);
+        difference.Count().Should().Be(3);
+
+        difference.Get("bird").Count().Should().Be(2);
+        difference.Get("bird").First().Should().Be("sparrow");
+        difference.Get("bird").Skip(1).First().Should().Be("eagle");
+        difference.Get("cat").Count().Should().Be(1);
+        difference.Get("cat").First().Should().Be("siamese");
     }
 }

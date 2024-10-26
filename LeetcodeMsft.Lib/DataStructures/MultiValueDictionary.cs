@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace LeetcodeMsft.Lib.DataStructures;
 
 /// <summary>
@@ -73,5 +75,17 @@ public class MultiValueDictionary<TKey, TValue> : IMultiValueDictionary<TKey, TV
                 yield return new KeyValuePair<TKey, TValue>(key, value);
             }
         }
+    }
+
+    /// <inheritdoc />
+    public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+    {
+        return Flatten().GetEnumerator();
+    }
+
+    /// <inheritdoc />
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

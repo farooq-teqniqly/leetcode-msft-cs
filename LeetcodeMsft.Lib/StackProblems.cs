@@ -1,6 +1,4 @@
-﻿namespace LeetcodeMsft.Lib.Tests;
-
-using System.Collections.Generic;
+﻿namespace LeetcodeMsft.Lib;
 
 public class StackProblems
 {

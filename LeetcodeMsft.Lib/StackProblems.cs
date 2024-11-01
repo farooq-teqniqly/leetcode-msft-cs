@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace LeetcodeMsft.Lib;
@@ -132,5 +133,54 @@ public class StackProblems
         }
 
         return tempStack.ToArray();
+    }
+
+    /// <summary>
+    /// Simplifies a given file path by removing unnecessary segments.
+    /// </summary>
+    /// <param name="input">The input file path to be simplified.</param>
+    /// <returns>The simplified file path.</returns>
+    public static string SimplifyPath(string input)
+    {
+        ArgumentNullException.ThrowIfNull(input);
+
+        var delimiter = "/";
+        var segments = input.Split(delimiter, StringSplitOptions.TrimEntries);
+        var directoryStack = new Stack<string>();
+
+        foreach (var segment in segments)
+        {
+            if (segment == "." || segment.Length == 0)
+            {
+                continue;
+            }
+
+            if (segment == "..")
+            {
+                if (directoryStack.Count > 0)
+                {
+                    directoryStack.Pop();
+                }
+            }
+            else
+            {
+                directoryStack.Push(segment);
+            }
+        }
+
+        if (directoryStack.Count == 0)
+        {
+            return delimiter;
+        }
+
+        var pathSegments = new string[directoryStack.Count + 1];
+        pathSegments[0] = string.Empty;
+
+        for (var i = pathSegments.Length - 1; i > 0; i--)
+        {
+            pathSegments[i] = directoryStack.Pop();
+        }
+
+        return string.Join(delimiter, pathSegments);
     }
 }

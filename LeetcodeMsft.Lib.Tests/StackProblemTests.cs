@@ -77,4 +77,25 @@ public class StackProblemTests
         var act = () => StackProblems.StackSort(null!);
         act.Should().Throw<ArgumentNullException>();
     }
+
+    [Theory]
+    [InlineData("/a//b////c/d//././/..", "/a/b/c")]
+    [InlineData("/../", "/")]
+    [InlineData("/home//foo/", "/home/foo")]
+    [InlineData(".", "/")]
+    [InlineData("..", "/")]
+    [InlineData("foo", "/foo")]
+    [InlineData("", "/")]
+    [InlineData("   ", "/")]
+    public void SimplifyPath_Returns_Expected_Result(string input, string expectedResult)
+    {
+        StackProblems.SimplifyPath(input).Should().Be(expectedResult);
+    }
+
+    [Fact]
+    public void SimplifyPath_Returns_When_Input_Null_Throws()
+    {
+        var act = () => StackProblems.SimplifyPath(null!);
+        act.Should().Throw<ArgumentNullException>();
+    }
 }
